@@ -1,6 +1,7 @@
 package com.nimish.hexagonalbanking;
 
 import com.nimish.hexagonalbanking.entity.Flight;
+import com.nimish.hexagonalbanking.repository.FlightRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,30 +20,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SpringDataJPATests {
 
 	@Autowired
-	private EntityManager entityManager;
-
-	@Test
-	void contextLoads() {
-	}
+	private FlightRepository flightRepository;
 
 	@Test
 	public void testFlightCanBeSaved() {
 		final Flight flight = new Flight();
-
 		flight.setOrigin("Delhi");
 
-		entityManager.persist(flight);
+		flightRepository.save(flight);
 
-		final TypedQuery<Flight> results = entityManager
-				.createQuery("SELECT f from Flight f", Flight.class);
-
-		final List<Flight> resultant = results.getResultList();
-
-
-		assertThat(resultant)
+		assertThat(flightRepository.findAll())
 				.hasSize(1)
-				.first()
-				.isEqualTo(flight);
-	}
+				.first().
+				isEqualToComparingFieldByField(flight);
 
+		flightRepository.deleteById(flight.getId());
+
+		assertThat(flightRepository.findAll())
+				.hasSize(0);
+
+	}
 }
