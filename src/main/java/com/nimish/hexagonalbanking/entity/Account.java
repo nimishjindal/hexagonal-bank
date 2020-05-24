@@ -1,6 +1,7 @@
 package com.nimish.hexagonalbanking.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,11 @@ public class Account {
     public Account(String name, Date dob){
         this.name = name;
         this.dob = dob;
+    }
+
+    public Account(){
+        this.name = "Some error";
+        this.dob = null;
     }
 
 }

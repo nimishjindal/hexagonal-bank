@@ -1,4 +1,4 @@
-package com.nimish.hexagonalbanking.controller;
+package com.nimish.hexagonalbanking.controller.restApi;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.nimish.hexagonalbanking.model.User;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserController {
+public class AccountController {
 
     @GetMapping("/user")
     public User getUser(

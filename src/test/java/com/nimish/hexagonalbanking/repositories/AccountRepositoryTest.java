@@ -87,6 +87,34 @@ class AccountRepositoryTest {
     }
 
     @Test
+    public void testFindAccountNimishById(){
+        try{
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date dob = simpleDateFormat.parse("1997-01-23");
+
+            final Account account1 = new Account("Nimish", dob);
+            final Account account2 = new Account("Not Nimish", dob);
+
+            Account savedAccount1 = accountRepository.save(account1);
+            accountRepository.save(account2);
+
+            Optional<Account> nimishAccountResultSet= accountRepository.findById(savedAccount1.getId());
+
+            assertThat(nimishAccountResultSet)
+                    .isNotEmpty()
+                    .contains(account1);
+
+            assertThat(nimishAccountResultSet.get().getId())
+                    .isNotEqualTo(account2.getId())
+                    .isEqualTo(account1.getId());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
     public void testUpdateBalanceAccountNimish(){
         try{
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
