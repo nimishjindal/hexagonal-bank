@@ -15,8 +15,14 @@ public class AccountServiceImpl implements AccountService{
     AccountRepository accountRepository;
 
     @Override
-    public Account create(Account account) {
-        return accountRepository.save(account);
+    public Account create(Account account){
+        System.out.println("hello");
+        System.out.println(account);
+        if (account.getName() != null)
+            if (!account.getName().isEmpty()) {
+                return accountRepository.save(account);
+            }
+        return null;
     }
 
     @Override

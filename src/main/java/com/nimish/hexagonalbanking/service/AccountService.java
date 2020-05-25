@@ -1,6 +1,7 @@
 package com.nimish.hexagonalbanking.service;
 
 import com.nimish.hexagonalbanking.entity.Account;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;

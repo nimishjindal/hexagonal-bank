@@ -35,6 +35,7 @@ class AccountServiceTest {
 			Account createdAccount = accountService.create(account1);
 
 			assertThat(createdAccount)
+					.isNotNull()
 					.isEqualToComparingFieldByField(account1);
 			assertThat(createdAccount.getId())
 					.isNotEqualTo(account2.getId());
