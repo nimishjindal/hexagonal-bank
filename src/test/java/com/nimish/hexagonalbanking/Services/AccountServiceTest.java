@@ -2,6 +2,7 @@ package com.nimish.hexagonalbanking.Services;
 
 import com.nimish.hexagonalbanking.entity.Account;
 import com.nimish.hexagonalbanking.service.AccountService;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -76,6 +77,8 @@ class AccountServiceTest {
 	public void testGetAllAccounts(){
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		try {
+			accountService.deleteAll();
+
 			Date dob = simpleDateFormat.parse("1997-01-23");
 
 			Account account1 = new Account("Nimish",dob);

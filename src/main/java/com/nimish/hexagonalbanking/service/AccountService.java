@@ -11,5 +11,6 @@ public interface AccountService {
     public Account create(Account account);
     public Optional<Account> getOne(Long id);
     public List<Account> getAll();
+    public void deleteAll();
 
 }

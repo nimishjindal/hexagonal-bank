@@ -34,4 +34,9 @@ public class AccountServiceImpl implements AccountService{
     public List<Account> getAll() {
         return (List<Account>) accountRepository.findAll();
     }
+
+    @Override
+    public void deleteAll() {
+        accountRepository.deleteAll();
+    }
 }

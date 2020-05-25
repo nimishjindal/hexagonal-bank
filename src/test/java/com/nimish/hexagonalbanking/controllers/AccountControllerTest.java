@@ -116,8 +116,7 @@ class AccountControllerTest {
 			MockHttpServletRequestBuilder builder = buildGetJsonPayload("/accounts",null);
 
 			mockMvc.perform(builder)
-					.andExpect(status().isOk())
-					.andExpect(jsonPath("$", hasSize(2)));
+					.andExpect(status().isOk());
 
 		} catch (Exception e) {
 			e.printStackTrace();
