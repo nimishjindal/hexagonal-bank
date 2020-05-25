@@ -65,6 +65,33 @@ class AccountControllerTest {
 	}
 
 	@Test
+	public void testGetAccountNimishWithId(){
+		try {
+
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date dob = simpleDateFormat.parse("1997-01-23");
+
+			Account account = new Account("Nimish",dob);
+			account.setId(1L);
+
+			when(accountService.getOne(1L)).thenReturn(java.util.Optional.of(account));
+
+			MockHttpServletRequestBuilder builder = buildGetJsonPayload("/accounts/1",null);
+
+			mockMvc.perform(builder)
+					.andExpect(status().isOk());
+
+			builder = buildGetJsonPayload("/accounts/2",null);
+
+			mockMvc.perform(builder)
+					.andExpect(status().isBadRequest());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public void testNotCreateAccountNull(){
 		try {
 
@@ -92,6 +119,15 @@ class AccountControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.characterEncoding("UTF-8")
 				.content(this.mapper.writeValueAsBytes(obj));
+		return builder;
+	}
+
+	MockHttpServletRequestBuilder buildGetJsonPayload(String url, Object obj) throws JsonProcessingException {
+		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get(url)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.accept(MediaType.APPLICATION_JSON)
+				.characterEncoding("UTF-8")
+				.content(obj==null?null:this.mapper.writeValueAsBytes(obj));
 		return builder;
 	}
 
