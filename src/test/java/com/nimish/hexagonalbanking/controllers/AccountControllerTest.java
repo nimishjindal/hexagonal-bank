@@ -1,26 +1,29 @@
 package com.nimish.hexagonalbanking.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimish.hexagonalbanking.controller.restApi.AccountController;
 import com.nimish.hexagonalbanking.entity.Account;
-import com.nimish.hexagonalbanking.repository.AccountRepository;
 import com.nimish.hexagonalbanking.service.AccountService;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.Matchers.is;
 
-@RunWith(SpringRunner.class)
+
 @WebMvcTest(AccountController.class)
 class AccountControllerTest {
 
@@ -30,8 +33,8 @@ class AccountControllerTest {
 	@MockBean
 	AccountService accountService;
 
-	@MockBean
-	AccountRepository accountRepository;
+	@Autowired
+	ObjectMapper mapper;
 
 	@Test
 	void contextLoads() {
@@ -40,25 +43,22 @@ class AccountControllerTest {
 	@Test
 	public void testCreateAccountNimish(){
 		try {
-			/*
+
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date dob = simpleDateFormat.parse("1997-01-23");
 
 			Account account = new Account("Nimish",dob);
-			*/
+			account.setId(1L);
 
-			String body = "{" +
-					"\"name\":\"nimish\","+
-					"\"dob\":\"1997-01-23\""+
-					"}";
+			when(accountService.create(Mockito.any(Account.class))).thenReturn(account);
 
-			mockMvc.perform(
-					MockMvcRequestBuilders.post("/accounts")
-							.content(body)
-							.contentType(MediaType.APPLICATION_JSON)
-					.accept(MediaType.APPLICATION_JSON)
-			)
-					.andExpect(status().isCreated());
+			// Build post request with vehicle object payload
+			MockHttpServletRequestBuilder builder = buildPostJsonPayload("/accounts",account);
+
+			mockMvc.perform(builder)
+					.andExpect(status().isCreated())
+					.andExpect(jsonPath("$.name", is(account.getName())));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,25 +72,27 @@ class AccountControllerTest {
 			Date dob = simpleDateFormat.parse("1997-01-23");
 
 			Account account = new Account("",dob);
+			account.setId(1L);
 
-			mockMvc.perform(
-					MockMvcRequestBuilders.post("/accounts")
-							.content(asJsonString(account))
-							.contentType(MediaType.APPLICATION_JSON)
-							.accept(MediaType.APPLICATION_JSON)
-			)
-					.andExpect(status().is4xxClientError());
+			when(accountService.create(Mockito.any(Account.class))).thenReturn(null);
+
+			MockHttpServletRequestBuilder builder = buildPostJsonPayload("/accounts", account);
+
+			mockMvc.perform(builder)
+					.andExpect(status().isBadRequest());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	static String asJsonString(final Object obj) {
-		try {
-			return new ObjectMapper().writeValueAsString(obj);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+	MockHttpServletRequestBuilder buildPostJsonPayload(String url, Object obj) throws JsonProcessingException {
+		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post(url)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.accept(MediaType.APPLICATION_JSON)
+				.characterEncoding("UTF-8")
+				.content(this.mapper.writeValueAsBytes(obj));
+		return builder;
 	}
 
 }
