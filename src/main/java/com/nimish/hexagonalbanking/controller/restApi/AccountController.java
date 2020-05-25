@@ -9,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class AccountController {
@@ -31,6 +28,12 @@ public class AccountController {
         user.setLastname(lastname);
         user.setAge(age);
         return user;
+    }
+
+    @GetMapping("/accounts")
+    public ResponseEntity<List<Account>> getAllAccounts(){
+        List<Account> accounts = accountService.getAll();
+        return new ResponseEntity<List<Account>>(accounts,HttpStatus.OK);
     }
 
     @GetMapping("/accounts/{id}")

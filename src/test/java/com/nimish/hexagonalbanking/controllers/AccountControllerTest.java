@@ -16,8 +16,11 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -85,6 +88,52 @@ class AccountControllerTest {
 
 			mockMvc.perform(builder)
 					.andExpect(status().isBadRequest());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testGetAllAccounts(){
+		try {
+
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date dob = simpleDateFormat.parse("1997-01-23");
+
+			Account account = new Account("Nimish",dob);
+			account.setId(1L);
+			Account account2 = new Account("Nimish 2",dob);
+			account.setId(2L);
+
+			ArrayList<Account> accounts = new ArrayList<Account>();
+
+			accounts.add(account);
+			accounts.add(account2);
+
+			when(accountService.getAll()).thenReturn(accounts);
+
+			MockHttpServletRequestBuilder builder = buildGetJsonPayload("/accounts",null);
+
+			mockMvc.perform(builder)
+					.andExpect(status().isOk())
+					.andExpect(jsonPath("$", hasSize(2)));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testGetNoAccounts(){
+		try {
+
+			when(accountService.getAll()).thenReturn(null);
+
+			MockHttpServletRequestBuilder builder = buildGetJsonPayload("/accounts",null);
+
+			mockMvc.perform(builder)
+					.andExpect(status().isOk());
 
 		} catch (Exception e) {
 			e.printStackTrace();

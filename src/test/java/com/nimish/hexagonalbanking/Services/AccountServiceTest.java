@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -71,4 +72,33 @@ class AccountServiceTest {
 		}
 	}
 
+	@Test
+	public void testGetAllAccounts(){
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date dob = simpleDateFormat.parse("1997-01-23");
+
+			Account account1 = new Account("Nimish",dob);
+			Account account2 = new Account("Nimish2",dob);
+			Account account3 = new Account("Nimish 3",dob);
+			Account account4 = new Account("4 Nimish",dob);
+			Account account5 = new Account("5 Nimish",dob);
+
+			Account createdAccount1 = accountService.create(account1);
+			Account createdAccount2 = accountService.create(account2);
+			Account createdAccount3 = accountService.create(account3);
+			Account createdAccount4 = accountService.create(account4);
+
+			List<Account> accounts = accountService.getAll();
+
+			assertThat(accounts)
+					.hasSize(4);
+			assertThat(accounts.get(1).getId())
+					.isEqualTo(createdAccount2.getId());
+
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 }
