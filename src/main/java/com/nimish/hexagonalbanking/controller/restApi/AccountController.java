@@ -12,31 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
+@RequestMapping("/accounts")
 public class AccountController {
 
     @Autowired
     AccountService accountService;
 
-    @GetMapping("/users")
-    public User getUser(
-            @RequestParam(value="firstname", defaultValue = "NimishDefault") String firstname,
-            @RequestParam(value="lastname", defaultValue = "JindalDefault") String lastname,
-            @RequestParam(value="age", defaultValue = "22") int age)
-    {
-        User user = new User();
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setAge(age);
-        return user;
-    }
-
-    @GetMapping("/accounts")
+    @GetMapping
+    
     public ResponseEntity<List<Account>> getAllAccounts(){
         List<Account> accounts = accountService.getAll();
         return new ResponseEntity<List<Account>>(accounts,HttpStatus.OK);
     }
 
-    @GetMapping("/accounts/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long id){
         Optional<Account> maybeAccount = accountService.getOne(id);
 
@@ -51,7 +40,7 @@ public class AccountController {
 
     }
 
-    @PostMapping(path = "/accounts", consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Account> PostUser(@RequestBody Account account){
         Account createdAccount = accountService.create(account);
         System.out.println(account);
