@@ -12,6 +12,7 @@ class HexagonalBankingApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+
 	@Test
 	public void testHomeController() {
 		//HomeController homeController = new HomeController();

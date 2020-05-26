@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Map;
 
 @Controller
-public class AccountController {
+public class AccountControllerSOAP {
 
     @GetMapping("accountForm")
     public String accountForm(@ModelAttribute ("registration")Registration registerationModel){
