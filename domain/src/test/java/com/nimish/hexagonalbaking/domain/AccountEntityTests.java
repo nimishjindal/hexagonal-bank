@@ -1,6 +1,6 @@
 package com.nimish.hexagonalbaking.domain;
 
-import com.nimsh.hexagonalbanking.domain.entity.Account;
+import com.nimish.hexagonalbanking.domain.entity.Account;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;

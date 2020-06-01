@@ -13,9 +13,9 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.nimish</groupId>
+	<groupId>com.nimish.hexagonal-banking</groupId>
 	<artifactId>hexagonal-banking</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>hexagonal-banking</name>
 	<description>hexagonal banking app</description>
 

@@ -1,4 +1,4 @@
-package com.nimsh.hexagonalbanking.domain.entity;
+package com.nimish.hexagonalbanking.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

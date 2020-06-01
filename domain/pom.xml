@@ -4,12 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>hexagonal-banking</artifactId>
-        <groupId>com.nimish</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <groupId>com.nimish.hexagonal-banking</groupId>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>domain</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
 
     <dependencies>
 

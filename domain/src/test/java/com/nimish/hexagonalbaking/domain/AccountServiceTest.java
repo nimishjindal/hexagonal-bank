@@ -1,9 +1,9 @@
 package com.nimish.hexagonalbaking.domain;
 
-import com.nimsh.hexagonalbanking.domain.AccountRepository;
-import com.nimsh.hexagonalbanking.domain.AccountService;
-import com.nimsh.hexagonalbanking.domain.CreateAccountCommand;
-import com.nimsh.hexagonalbanking.domain.entity.Account;
+import com.nimish.hexagonalbanking.domain.AccountRepository;
+import com.nimish.hexagonalbanking.domain.AccountService;
+import com.nimish.hexagonalbanking.domain.CreateAccountCommand;
+import com.nimish.hexagonalbanking.domain.entity.Account;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

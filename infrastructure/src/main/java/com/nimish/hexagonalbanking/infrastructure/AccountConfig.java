@@ -1,4 +1,4 @@
-package com.nimish.hexagonalbanking;
+package com.nimish.hexagonalbanking.infrastructure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

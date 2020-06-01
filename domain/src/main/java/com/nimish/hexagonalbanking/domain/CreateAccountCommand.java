@@ -1,4 +1,4 @@
-package com.nimsh.hexagonalbanking.domain;
+package com.nimish.hexagonalbanking.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

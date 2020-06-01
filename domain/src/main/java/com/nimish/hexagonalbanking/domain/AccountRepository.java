@@ -1,6 +1,6 @@
-package com.nimsh.hexagonalbanking.domain;
+package com.nimish.hexagonalbanking.domain;
 
-import com.nimsh.hexagonalbanking.domain.entity.Account;
+import com.nimish.hexagonalbanking.domain.entity.Account;
 
 public interface AccountRepository {
     Account save(Account account);
