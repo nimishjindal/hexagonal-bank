@@ -1,6 +1,6 @@
 package com.nimish.hexagonalbanking.infrastructure.repositories;
-
-import com.nimish.hexagonalbanking.infrastructure.entity.Account;
+/*
+import com.nimish.hexagonalbanking.domain.entity.Account;
 import com.nimish.hexagonalbanking.infrastructure.repository.AccountRepository;
 
 import org.junit.Before;
@@ -146,3 +146,6 @@ class AccountRepositoryTest {
     }
 
 }
+
+
+ */

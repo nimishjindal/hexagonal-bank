@@ -74,6 +74,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.nimish.hexagonal-banking</groupId>
+            <artifactId>domain</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 

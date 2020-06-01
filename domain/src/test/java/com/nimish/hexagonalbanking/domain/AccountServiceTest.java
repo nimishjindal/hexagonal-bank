@@ -1,4 +1,4 @@
-package com.nimish.hexagonalbaking.domain;
+package com.nimish.hexagonalbanking.domain;
 
 import com.nimish.hexagonalbanking.domain.AccountRepository;
 import com.nimish.hexagonalbanking.domain.AccountService;

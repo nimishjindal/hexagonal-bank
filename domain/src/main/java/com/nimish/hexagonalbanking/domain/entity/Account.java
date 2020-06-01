@@ -8,12 +8,15 @@ import lombok.NonNull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Account {
+@Table(name = "Account")
+public class Account implements Serializable{
 
     @Id
     @GeneratedValue
