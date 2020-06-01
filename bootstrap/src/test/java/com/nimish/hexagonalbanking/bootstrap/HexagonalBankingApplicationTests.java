@@ -1,4 +1,4 @@
-package com.nimish.hexagonalbanking.infrastructure;
+package com.nimish.hexagonalbanking.bootstrap;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
