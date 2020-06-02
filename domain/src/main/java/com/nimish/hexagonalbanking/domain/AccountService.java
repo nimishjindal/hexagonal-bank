@@ -2,6 +2,9 @@ package com.nimish.hexagonalbanking.domain;
 
 import com.nimish.hexagonalbanking.domain.entity.Account;
 
+import java.util.List;
+import java.util.Optional;
+
 public class AccountService{
 
     private AccountRepository accountRepository;
@@ -22,6 +25,10 @@ public class AccountService{
         Double newBalance = account.getBalance() + command.getAmount();
         account.setBalance(newBalance);
         return accountRepository.save(account).getId();
+    }
+
+    public Optional<Account> findOneAccount(GetOneAccountQuery query){
+        return accountRepository.findById(query.getId());
     }
 
 }

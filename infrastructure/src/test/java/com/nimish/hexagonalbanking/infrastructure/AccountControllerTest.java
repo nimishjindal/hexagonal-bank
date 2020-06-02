@@ -3,10 +3,16 @@ package com.nimish.hexagonalbanking.infrastructure;
 import com.nimish.hexagonalbanking.domain.AccountService;
 import com.nimish.hexagonalbanking.domain.AddBalanceCommand;
 import com.nimish.hexagonalbanking.domain.CreateAccountCommand;
+import com.nimish.hexagonalbanking.domain.GetOneAccountQuery;
+import com.nimish.hexagonalbanking.domain.entity.Account;
 import com.nimish.hexagonalbanking.infrastructure.controller.restApi.AccountController;
 import com.nimish.hexagonalbanking.infrastructure.request.AddBalanceRequest;
 import com.nimish.hexagonalbanking.infrastructure.request.CreateAccountRequest;
+import com.nimish.hexagonalbanking.infrastructure.request.GetOneAccountRequest;
 import org.junit.jupiter.api.Test;
+
+import java.util.Date;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -52,4 +58,27 @@ class AccountControllerTest {
 
     }
 
+    //@Test
+    public void should_convert_request_to_findOne_Query_and_call_service(){
+
+        //given
+
+        final Account account1 = new Account("Nimish",new Date());
+        account1.setBalance(10d);
+        account1.setId(123L);
+
+        GetOneAccountQuery query = new GetOneAccountQuery(123L);
+        doReturn(Optional.of(account1)).when(accountService).findOneAccount(query);
+
+        //when
+        Account account = accountController.getOneAccount(account1.getId());
+
+        //then
+        assertThat(account)
+                .isNotNull()
+                .isEqualToComparingFieldByField(account1);
+
+        verify(accountService,times(1)).findOneAccount(query);
+
+    }
 }

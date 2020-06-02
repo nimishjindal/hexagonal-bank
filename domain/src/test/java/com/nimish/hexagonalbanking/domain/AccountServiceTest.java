@@ -77,4 +77,24 @@ class AccountServiceTest {
 		assertThat(updatedAccountFetch.getBalance()).isEqualTo(updatedAccount.getBalance());
 	}
 
+	@Test
+	public void Get_Account_By_Id_Test(){
+		//Given
+		final Account account1 = new Account("Nimish",new Date());
+		account1.setBalance(10d);
+		account1.setId(1L);
+
+		Optional<Account> opt = Optional.of(account1);
+
+		doReturn(opt).when(accountRepository).findById(account1.getId());
+
+		val query = new GetOneAccountQuery(1L);
+
+		//When
+		Account accountFound = accountService.findOneAccount(query).get();
+
+		//Then
+		assertThat(accountFound.getId()).isEqualTo(account1.getId());
+	}
+
 }

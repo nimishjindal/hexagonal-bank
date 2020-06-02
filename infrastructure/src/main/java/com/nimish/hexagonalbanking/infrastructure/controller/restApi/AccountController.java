@@ -1,8 +1,11 @@
 package com.nimish.hexagonalbanking.infrastructure.controller.restApi;
 
+import com.nimish.hexagonalbanking.domain.GetOneAccountQuery;
+import com.nimish.hexagonalbanking.domain.entity.Account;
 import com.nimish.hexagonalbanking.infrastructure.request.AddBalanceRequest;
 import com.nimish.hexagonalbanking.infrastructure.request.CreateAccountRequest;
 import com.nimish.hexagonalbanking.domain.AccountService;
+import com.nimish.hexagonalbanking.infrastructure.request.GetOneAccountRequest;
 import com.nimish.hexagonalbanking.infrastructure.response.CreateAccountResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,4 +61,14 @@ public class AccountController {
         return aLong;
     }
 
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public Account getOneAccount(@PathVariable Long id) {
+        try {
+            GetOneAccountQuery query = new GetOneAccountQuery(id);
+            Optional<Account> maybeAccount = accountService.findOneAccount(query);
+            return maybeAccount.get();
+        }catch (NoSuchElementException e){
+            return null;
+        }
+    }
 }
