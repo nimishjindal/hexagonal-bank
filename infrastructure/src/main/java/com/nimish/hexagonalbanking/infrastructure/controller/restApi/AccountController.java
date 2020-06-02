@@ -1,5 +1,6 @@
 package com.nimish.hexagonalbanking.infrastructure.controller.restApi;
 
+import com.nimish.hexagonalbanking.infrastructure.request.AddBalanceRequest;
 import com.nimish.hexagonalbanking.infrastructure.request.CreateAccountRequest;
 import com.nimish.hexagonalbanking.domain.AccountService;
 import com.nimish.hexagonalbanking.infrastructure.response.CreateAccountResponse;
@@ -48,6 +49,12 @@ public class AccountController {
     @PostMapping(consumes = "application/json", produces = "application/json")
     public Long PostUser(@RequestBody CreateAccountRequest request){
         Long aLong = accountService.create(request.toCommand());
+        return aLong;
+    }
+
+    @PostMapping(value = "/deposit", consumes = "application/json", produces = "application/json")
+    public Long deposit(@RequestBody AddBalanceRequest request){
+        Long aLong = accountService.addBalance(request.toCommand());
         return aLong;
     }
 

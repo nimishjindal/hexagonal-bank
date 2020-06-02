@@ -17,4 +17,11 @@ public class AccountService{
         return accountRepository.save(account).getId();
     }
 
+    public Long addBalance(AddBalanceCommand command){
+        Account account = accountRepository.findById(command.getId()).get();
+        Double newBalance = account.getBalance() + command.getAmount();
+        account.setBalance(newBalance);
+        return accountRepository.save(account).getId();
+    }
+
 }
