@@ -10,6 +10,7 @@ import com.nimish.hexagonalbanking.infrastructure.request.AddBalanceRequest;
 import com.nimish.hexagonalbanking.infrastructure.request.CreateAccountRequest;
 import com.nimish.hexagonalbanking.infrastructure.request.GetOneAccountRequest;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.util.Date;
 import java.util.Optional;
@@ -19,8 +20,9 @@ import static org.mockito.Mockito.*;
 
 class AccountControllerTest {
 
-	private AccountService accountService = mock(AccountService.class);
-	private AccountController accountController = new AccountController(accountService);
+    private AccountService accountService = mock(AccountService.class);
+    private RabbitTemplate rabbitTemplate = mock(RabbitTemplate.class);
+	private AccountController accountController = new AccountController(accountService,rabbitTemplate);
 
     @Test
     public void should_convert_request_to_command_and_call_service(){
