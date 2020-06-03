@@ -24,31 +24,6 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    /*
-    @GetMapping
-    public ResponseEntity<List<Account>> getAllAccounts(){
-        List<Account> accounts = accountService.getAll();
-        return new ResponseEntity<List<Account>>(accounts,HttpStatus.OK);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Account> getAccountById(@PathVariable Long id){
-        Optional<Account> maybeAccount = accountService.getOne(id);
-
-        try{
-            return new ResponseEntity<Account>(maybeAccount.get(),HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        } catch (Exception e){
-            e.printStackTrace();
-            throw e;
-        }
-
-    }
-
-
- */
-
     @PostMapping(consumes = "application/json", produces = "application/json")
     public Long PostUser(@RequestBody CreateAccountRequest request){
         Long aLong = accountService.create(request.toCommand());
