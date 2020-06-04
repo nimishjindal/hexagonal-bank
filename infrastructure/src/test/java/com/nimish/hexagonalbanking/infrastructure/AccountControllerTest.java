@@ -21,8 +21,7 @@ import static org.mockito.Mockito.*;
 class AccountControllerTest {
 
     private AccountService accountService = mock(AccountService.class);
-    private RabbitTemplate rabbitTemplate = mock(RabbitTemplate.class);
-	private AccountController accountController = new AccountController(accountService,rabbitTemplate);
+	private AccountController accountController = new AccountController(accountService);
 
     @Test
     public void should_convert_request_to_command_and_call_service(){
